@@ -128,17 +128,9 @@ class ImgCropState extends State<ImgCrop> with TickerProviderStateMixin, Drag {
     _activate(1.0);
   }
 
-  Future<File> cropCompleted(File file, {int pictureQuality}) async {
-    final options = await ImageCrop.getImageOptions(file: file);
-    debugPrint('image width: ${options.width}, height: ${options.height}');
-    final sampleFile = await ImageCrop.sampleImage(
-      file: file,
-      preferredWidth: (pictureQuality / scale).round(),
-      preferredHeight: (pictureQuality / scale).round(),
-    );
-
+  Future<File> cropCompleted(File file) async {
     final croppedFile = await ImageCrop.cropImage(
-      file: sampleFile,
+      file: file,
       area: area,
     );
     return croppedFile;
